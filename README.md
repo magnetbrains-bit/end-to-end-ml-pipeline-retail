@@ -91,26 +91,8 @@ The project is organized into distinct modules for clarity and maintainability.
 4.  **Containerization & Deployment:** The entire application was containerized using **Docker** and deployed as a Web Service on **Render**, which is connected to this GitHub repository for continuous deployment.
 
 ## Flowchart
-flowchart LR
-    A[Data Source: Kaggle] --> B[Data Processing & Feature Engineering<br/>Python/Pandas]
-    B --> C[Model Training<br/>XGBoost]
-    C --> D[(Model Artifact<br/>.pkl)]
-    D --> E[API Service<br/>FastAPI]
-    E --> F[Containerization<br/>Docker]
-    F --> G[Cloud Deployment<br/>Render]
-    
-    %% Styling
-    classDef dataSource fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
-    classDef processing fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    classDef model fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
-    classDef artifact fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    classDef deployment fill:#fce4ec,stroke:#c2185b,stroke-width:2px
-    
-    class A dataSource
-    class B,C processing
-    class E model
-    class D artifact
-    class F,G deployment
+![image](https://github.com/user-attachments/assets/37a6ecd5-d19b-4484-822a-00661a0fe804)
+
 
 ## 📈 Results & Performance: V1 vs. V2
 The iterative improvement process was critical. The key was trading a small amount of Recall for a massive gain in Precision, making the model's predictions highly reliable.
