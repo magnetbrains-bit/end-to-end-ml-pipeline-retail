@@ -92,6 +92,8 @@ The project is organized into distinct modules for clarity and maintainability.
 
 ## Flowchart
 ![image](https://github.com/user-attachments/assets/37a6ecd5-d19b-4484-822a-00661a0fe804)
+![image](https://github.com/user-attachments/assets/e8564e06-4c92-4178-9162-011784ca8fff)
+
 
 
 ## 📈 Results & Performance: V1 vs. V2
