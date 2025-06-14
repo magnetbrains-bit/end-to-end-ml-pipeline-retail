@@ -4,20 +4,17 @@ This project demonstrates the complete lifecycle of a machine learning model, fr
 
 A key highlight of this project is the **iterative model improvement process**, where an initial baseline model (V1) with poor performance was systematically diagnosed and enhanced to create a high-performance, business-ready model (V2).
 
-**✨ Live API Documentation (Swagger UI):** [https://your-render-service-url.onrender.com/docs](https://your-render-service-url.onrender.com/docs)  
+**✨ Live API Documentation (Swagger UI):** [https://propensity-api-himanshu.onrender.com/docs](https://propensity-api-himanshu.onrender.com/docs)  
 *(Note: The free tier on Render may spin down the service due to inactivity. The first request might take 30-60 seconds to wake the server up.)*
 
 ---
 
 ## 📋 Table of Contents
 - [Project Overview](#-project-overview)
+- [The Feature Engineering Strategy](#-the-feature-engineering-strategy)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [The Machine Learning Workflow](#-the-machine-learning-workflow)
-  - [1. Data Processing & Feature Engineering](#1-data-processing--feature-engineering)
-  - [2. Model Training & Iterative Improvement](#2-model-training--iterative-improvement)
-  - [3. Model Serving via REST API](#3-model-serving-via-rest-api)
-  - [4. Containerization & Deployment](#4-containerization--deployment)
 - [Results & Performance: V1 vs. V2](#-results--performance-v1-vs-v2)
 - [How to Run This Project](#-how-to-run-this-project)
 - [Future Improvements](#-future-improvements)
@@ -34,20 +31,36 @@ This project tackles the problem by:
 
 The project uses the [Retail Rocket E-commerce Dataset](https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset).
 
+## 💡 The Feature Engineering Strategy
+
+The success of the final model hinged on creating features that captured not just *what* a user did, but the **recency and intensity** of their actions. Instead of global aggregates, I engineered a set of **time-windowed features**, which proved to be highly predictive.
+
+For each user, the following features were calculated based on their activity in the **last 1, 7, and 30 days**:
+-   `num_views_{n}d`: Total number of items viewed.
+-   `num_addtocart_{n}d`: Total number of times an item was added to the cart. This is a strong intent signal.
+-   `num_unique_items_{n}d`: The variety of items a user is interested in.
+-   `total_events_{n}d`: The overall activity level of the user.
+
+Additionally, two crucial features were created:
+-   `days_since_last_event`: Captures user **recency**. A user who was active yesterday is more likely to return than one who was last seen a month ago.
+-   `add_to_cart_rate_7d`: The ratio of `addtocart` events to `view` events in the last week. This measures the user's **conversion intent** from browsing to consideration.
+
+These features provided the model with a rich, multi-dimensional view of each user's recent behavior, which was critical for its high performance.
+
 ## 🛠️ Tech Stack
 
 - **Data Science & Modeling:**
   - `Python 3.11`
-  - `Pandas` for data manipulation
+  - `Pandas` & `NumPy` for data manipulation
   - `Scikit-learn` for data splitting and evaluation
   - `XGBoost` for the gradient boosting model
 - **API & Engineering:**
   - `FastAPI` for building the high-performance prediction API
   - `Uvicorn` as the ASGI server
   - `Docker` 🐳 for containerization
-- **Development Environment & Deployment:**
-  - `Google Colab` for initial exploration and model development
-  - `Visual Studio Code` for local development and API assembly
+- **Development & Deployment:**
+  - `Google Colab` & `Jupyter` for initial exploration
+  - `Visual Studio Code` for local development
   - `Git & GitHub` for version control
   - `Render` ☁️ for cloud deployment
 
@@ -55,40 +68,29 @@ The project uses the [Retail Rocket E-commerce Dataset](https://www.kaggle.com/d
 The project is organized into distinct modules for clarity and maintainability.
 ```
 .
-├── 📁 app/                  # Contains all files for the FastAPI application
-│   ├── main.py             # The main API logic
-│   ├── propensity_to_buy_model_v2.pkl # The trained model artifact
-│   └── features_v2.json    # List of features the model expects
-├── 📁 data/                 # (Ignored by Git) Raw data files like events.csv
-├── 📁 scripts/              # Reusable scripts for local data processing and training
+├── 📁 app/
+│   ├── main.py
+│   ├── propensity_to_buy_model_v2.pkl
+│   └── features_v2.json
+├── 📁 data/
+├── 📁 scripts/
 │   ├── process_data.py
 │   └── train_model.py
-├── .gitignore              # Specifies files/folders for Git to ignore
-├── Dockerfile              # Recipe to build the application's Docker image
-├── requirements.txt        # List of Python dependencies
-└── README.md               # You are here!
+├── .gitignore
+├── Dockerfile
+├── requirements.txt
+└── README.md
 ```
 
 ## 🔄 The Machine Learning Workflow
 
-### 1. Data Processing & Feature Engineering
-The project began in Google Colab to handle the large (2.7M+ events) dataset. The most critical step was engineering features that capture user intent. Instead of basic counts, **time-windowed features** were created (e.g., `num_views_in_last_7_days`, `add_to_cart_rate_in_last_30_days`) to model the recency and intensity of user engagement.
-
-### 2. Model Training & Iterative Improvement
-An **XGBoost Classifier** was chosen for its performance. The development process followed a crucial iterative loop:
-
--   **Model V1 (Baseline):** The first model was trained on simple, globally aggregated features. The result was a model with an extremely low **Precision of 0.03%**, making it commercially unviable as it produced too many false positives.
-
--   **Model V2 (High-Performance):** After diagnosing V1's failure, I re-engineered the feature set to be time-aware and addressed the severe class imbalance by finding an **optimal prediction threshold** using the Precision-Recall curve. This resulted in a **dramatic performance increase**, creating a model that is both predictive and practical.
-
-### 3. Model Serving via REST API
-The final V2 model was wrapped in a REST API using **FastAPI**. The API exposes a `/predict` endpoint that takes a JSON payload of user features and returns a real-time propensity score. FastAPI was chosen for its high speed and automatic generation of interactive documentation (Swagger UI).
-
-### 4. Containerization & Deployment
-The entire FastAPI application—including the Python environment, dependencies, and model artifacts—was containerized using **Docker**. This creates a portable, reproducible, and scalable service. The Docker image is deployed as a Web Service on **Render**, which is connected to this GitHub repository for continuous deployment.
+1.  **Data Processing & Feature Engineering:** The raw data was processed to create the time-windowed features described above. This logic is encapsulated in `scripts/process_data.py`.
+2.  **Model Training & Iteration:** An **XGBoost Classifier** was trained. After an initial poor-performing baseline (V1), the model was retrained on the advanced features (V2) and the prediction threshold was optimized, leading to a massive performance increase.
+3.  **API Service:** The final V2 model was wrapped in a **FastAPI** REST API that exposes a `/predict` endpoint.
+4.  **Containerization & Deployment:** The entire application was containerized using **Docker** and deployed as a Web Service on **Render**, which is connected to this GitHub repository for continuous deployment.
 
 ## 📈 Results & Performance: V1 vs. V2
-The iterative improvement process yielded significant gains, transforming the model from unusable to valuable. The key was trading a small amount of Recall for a massive gain in Precision.
+The iterative improvement process was critical. The key was trading a small amount of Recall for a massive gain in Precision, making the model's predictions highly reliable.
 
 | Metric | Model V1 (Poor Baseline) | Model V2 (Final) | Change | Business Impact |
 | :--- | :--- | :--- | :--- | :--- |
@@ -109,8 +111,8 @@ This guide provides instructions to set up the environment, generate the model a
 #### Step 1: Clone & Set Up Environment
 ```bash
 # Clone this repository
-git clone https://github.com/YourUsername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/magnetbrains-bit/end-to-end-ml-pipeline-retail.git
+cd end-to-end-ml-pipeline-retail
 
 # Create and activate a virtual environment
 python -m venv venv
@@ -150,5 +152,5 @@ Your API is now running locally!
 
 ## 🔮 Future Improvements
 - **Automated Retraining Pipeline:** Implement a workflow orchestration tool like **Prefect** or **GitHub Actions** to run the training scripts on a schedule, creating a fully automated, self-improving system.
-- **Model Monitoring:** Build a dashboard (e.g., with Streamlit) to track model performance, data drift, and concept drift over time by logging API requests and predictions.
+- **Model Monitoring:** Build a dashboard (e.g., with Streamlit) to track model performance and data drift over time by logging API requests and predictions.
 - **Full CI/CD:** Enhance the GitHub workflow to automatically run tests and linters on every push, only deploying to Render if all checks pass.
