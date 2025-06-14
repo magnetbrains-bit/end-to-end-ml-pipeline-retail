@@ -91,10 +91,8 @@ The project is organized into distinct modules for clarity and maintainability.
 4.  **Containerization & Deployment:** The entire application was containerized using **Docker** and deployed as a Web Service on **Render**, which is connected to this GitHub repository for continuous deployment.
 
 ## Flowchart
+
 ![image](https://github.com/user-attachments/assets/37a6ecd5-d19b-4484-822a-00661a0fe804)
-![image](https://github.com/user-attachments/assets/e8564e06-4c92-4178-9162-011784ca8fff)
-
-
 
 ## 📈 Results & Performance: V1 vs. V2
 The iterative improvement process was critical. The key was trading a small amount of Recall for a massive gain in Precision, making the model's predictions highly reliable.
