@@ -152,11 +152,15 @@ Your API is now running locally!
 *   Open your browser and go to **`http://127.0.0.1:8000/docs`** to see the interactive documentation.
 
 ## Screenshots
-1.Render deployment log
+1.**Render deployment log**
+
 ![Screenshot 2025-06-14 203259](https://github.com/user-attachments/assets/d49db62f-bf11-46b9-b301-f1498c61db1e)
-2.Swagger UI 
+
+2.**Swagger UI** 
+
 ![Screenshot 2025-06-14 205134](https://github.com/user-attachments/assets/ddb5232a-69b2-4cc8-bb80-1d6dc9582761)
-3.Profile 1: The "Hot Lead" 🔥:
+
+3.**Profile 1: The "Hot Lead" 🔥:**
 {
   "features": {
     "total_events_30d": 50,
@@ -175,8 +179,10 @@ Your API is now running locally!
     "add_to_cart_rate_7d": 0.25
   }
 }
+
 ![Screenshot 2025-06-14 203559](https://github.com/user-attachments/assets/fcf2ec58-3f43-4ecc-9d84-e3a941a5b743)
-4.Profile 2: The "Lapsed User" 😴
+
+4.**Profile 2: The "Lapsed User" 😴**
 {
   "features": {
     "total_events_30d": 20,
@@ -195,8 +201,9 @@ Your API is now running locally!
     "add_to_cart_rate_7d": 0.0
   }
 }
+
 ![Screenshot 2025-06-14 203712](https://github.com/user-attachments/assets/2822cace-967a-49e7-b51c-b667244e266f)
-5.Profile 3: The "Minimalist" (Edge Case)
+5.**Profile 3: The "Minimalist" (Edge Case)**
 {
   "features": {
     "total_events_30d": 2,
@@ -215,6 +222,7 @@ Your API is now running locally!
     "add_to_cart_rate_7d": 1.0
   }
 }
+
 ![Screenshot 2025-06-14 203741](https://github.com/user-attachments/assets/796b83b0-765b-4a5c-a3bf-d2d7f80bd8c6)
 
 ## 🔮 Future Improvements
