@@ -74,6 +74,8 @@ The project is organized into distinct modules for clarity and maintainability.
 │   ├── propensity_to_buy_model_v2.pkl
 │   └── features_v2.json
 ├── 📁 data/
+├── 📁 docs/                 
+│   └── Project_Documentation.pdf  
 ├── 📁 scripts/
 │   ├── process_data.py
 │   └── train_model.py
