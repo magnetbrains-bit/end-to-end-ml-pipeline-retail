@@ -1,0 +1,42 @@
+# requirements.txt
+# This file lists the Python packages required to run the project.
+# To install all dependencies, run: pip install -r requirements.txt
+
+# ====== Core Data Science & ML ======
+# For data manipulation, feature engineering, and analysis
+pandas
+numpy
+
+# For model evaluation, metrics, and data splitting
+scikit-learn
+
+# The high-performance gradient boosting library for modeling
+xgboost
+
+# For saving and loading the trained model artifact (.pkl)
+joblib
+
+# The engine required by Pandas for reading/writing Parquet files
+pyarrow
+
+
+# ====== API & Model Serving ======
+# High-performance framework for building the prediction API
+fastapi
+
+# The ASGI server that runs the FastAPI application
+# For production, it's often good to install with extras: uvicorn[standard]
+uvicorn
+
+# Used by FastAPI for robust data validation of API requests
+pydantic
+
+
+# ====== Workflow Orchestration (for local automation) ======
+# For defining and running the automated ML pipeline flow
+prefect
+
+
+# ====== Development & Exploration (Optional) ======
+# For running notebooks for exploration (e.g., Jupyter)
+notebook
