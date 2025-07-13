@@ -74,6 +74,7 @@ The project is organized into distinct modules for clarity and maintainability.
 │   ├── propensity_to_buy_model_v2.pkl
 │   └── features_v2.json
 ├── 📁 data/
+|── 📁 dashboard/app.py
 ├── 📁 docs/                 
 │   └── Project_Documentation.pdf  
 ├── 📁 scripts/
@@ -156,6 +157,10 @@ docker run -p 8000:8000 propensity-api
 #### Step 5: Access the Live API
 Your API is now running locally!
 *   Open your browser and go to **`http://127.0.0.1:8000/docs`** to see the interactive documentation.
+## Updated
+#### Step 6. Launch Streamlit Dashboard
+
+*   streamlit run dashboard/app.py
 
 ## Screenshots
 
@@ -235,6 +240,11 @@ Your API is now running locally!
 }
 ```
 ![Screenshot 2025-06-14 203741](https://github.com/user-attachments/assets/796b83b0-765b-4a5c-a3bf-d2d7f80bd8c6)
+
+6.**Dashboard**
+<img width="1835" height="884" alt="Screenshot 2025-07-14 002121" src="https://github.com/user-attachments/assets/368fbac4-4018-4b6a-97b9-fb6ff0931833" />
+<img width="1846" height="900" alt="Screenshot 2025-07-14 002222" src="https://github.com/user-attachments/assets/78a1cf6e-905d-439f-bbfc-f8cd582e5b74" />
+
 
 ## 🔮 Future Improvements
 - **Automated Retraining Pipeline:** Implement a workflow orchestration tool like **Prefect** or **GitHub Actions** to run the training scripts on a schedule, creating a fully automated, self-improving system.
