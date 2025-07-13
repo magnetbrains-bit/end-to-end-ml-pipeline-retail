@@ -1,4 +1,4 @@
-# 🚀 End-to-End MLOps: Customer Purchase Propensity API 🛍️
+# 🚀 End-to-End ML: Customer Purchase Propensity API 🛍️
 
 This project demonstrates the complete lifecycle of a machine learning model, from data exploration and feature engineering to building a high-performance, containerized REST API for serving real-time predictions.
 
